@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FotoService } from '../services/foto.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,36 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  urlImageStorage : string[] = [];
+
+  judul : String;
+  isi : String;
+  tanggal : Date;
+  rating : Number;
+
+  indexFoto = [];
+  indexFotoCounter = 0;
+
+  constructor(
+    public fotoService:FotoService, 
+    private afStorage : AngularFireStorage
+    ) {}
+
+  async ngOnInit(){
+    await this.fotoService.loadFoto();
+  }
+
+  addPictures(){
+    this.fotoService.tambahFoto();
+    this.indexFoto.push(this.indexFotoCounter);
+    this.indexFotoCounter++;
+  }
+
+  saveNote(){
+    // var today = new Date();
+    // this.tanggal = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+
+
+  }
 
 }

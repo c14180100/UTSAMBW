@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+interface data {
+  judulFace : string,
+  isiFace : string,
+  tanggalFace : Date,
+  nilaiFace : Number
+}
 
 @Component({
   selector: 'app-tab1',
@@ -8,10 +17,19 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
 
-  constructor(private router : Router) {}
+  isiData : Observable<data[]>;
+  isiDataColl : AngularFirestoreCollection<data>;
 
+  constructor(private router : Router, afs : AngularFirestore) {
+    this.isiDataColl = afs.collection('Notes');
+    this.isiData = this.isiDataColl.valueChanges();
+  }
 
   createNote(){
     this.router.navigateByUrl("tab2");
+  }
+
+  seeDetails(id){
+    this.router.navigateByUrl("tab3/"+id);
   }
 }

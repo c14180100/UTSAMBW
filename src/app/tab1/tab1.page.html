@@ -7,6 +7,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let data of isiData | async; let i = index" (click)="seeDetails(i)">
+      <h4>{{data.judulFace}}</h4>
+      <br>
+    </ion-item>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="createNote()">
       <ion-icon name="create"></ion-icon>
